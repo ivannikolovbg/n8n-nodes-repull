@@ -1,0 +1,10 @@
+{
+	"node": "n8n-nodes-repull.repull",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Sales", "Communication"],
+	"resources": {
+		"credentialDocumentation": [{ "url": "https://repull.dev/docs/api-keys" }],
+		"primaryDocumentation": [{ "url": "https://github.com/ivannikolovbg/n8n-nodes-repull#readme" }]
+	}
+}

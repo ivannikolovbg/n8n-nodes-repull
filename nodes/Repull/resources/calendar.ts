@@ -1,0 +1,120 @@
+import type { INodeProperties } from 'n8n-workflow';
+
+const show = { resource: ['calendar'] };
+const showUpdate = { ...show, operation: ['update'] };
+
+export const calendarDescription: INodeProperties[] = [
+	{
+		displayName: 'Operation',
+		name: 'operation',
+		type: 'options',
+		noDataExpression: true,
+		displayOptions: { show },
+		options: [
+			{
+				name: 'Get',
+				value: 'get',
+				action: 'Get calendar days',
+				description: 'Get availability and nightly prices for a property',
+				routing: { request: { method: 'GET', url: '=/v1/availability/{{$parameter.propertyId}}' } },
+			},
+			{
+				name: 'Update',
+				value: 'update',
+				action: 'Update calendar days',
+				description: 'Block or open dates, or change price and stay limits, on the channel',
+				routing: { request: { method: 'PUT', url: '=/v1/availability/{{$parameter.propertyId}}' } },
+			},
+		],
+		default: 'get',
+	},
+	{
+		displayName: 'Property ID',
+		name: 'propertyId',
+		type: 'string',
+		required: true,
+		default: '',
+		displayOptions: { show },
+	},
+	{
+		displayName: 'From',
+		name: 'from',
+		type: 'dateTime',
+		required: true,
+		default: '',
+		description: 'First day of the window (inclusive)',
+		displayOptions: { show: { ...show, operation: ['get'] } },
+		routing: { send: { type: 'query', property: 'from', value: '={{$value.slice(0, 10)}}' } },
+	},
+	{
+		displayName: 'To',
+		name: 'to',
+		type: 'dateTime',
+		required: true,
+		default: '',
+		description: 'Last day of the window (inclusive)',
+		displayOptions: { show: { ...show, operation: ['get'] } },
+		routing: { send: { type: 'query', property: 'to', value: '={{$value.slice(0, 10)}}' } },
+	},
+	{
+		displayName: 'Dates',
+		name: 'dates',
+		type: 'string',
+		required: true,
+		default: '',
+		placeholder: '2026-12-24, 2026-12-25',
+		description: 'Comma-separated dates (YYYY-MM-DD), up to 731',
+		displayOptions: { show: showUpdate },
+		routing: {
+			send: {
+				type: 'body',
+				property: 'dates',
+				value: '={{ $value.split(",").map((d) => d.trim()).filter(Boolean) }}',
+			},
+		},
+	},
+	{
+		displayName: 'Changes',
+		name: 'changes',
+		type: 'collection',
+		placeholder: 'Add Change',
+		default: {},
+		required: true,
+		description: 'Set at least one',
+		displayOptions: { show: showUpdate },
+		options: [
+			{
+				displayName: 'Available',
+				name: 'available',
+				type: 'boolean',
+				default: true,
+				description: 'Whether the dates are open for booking',
+				routing: { send: { type: 'body', property: 'available' } },
+			},
+			{
+				displayName: 'Maximum Nights',
+				name: 'maxNights',
+				type: 'number',
+				typeOptions: { minValue: 1 },
+				default: 30,
+				routing: { send: { type: 'body', property: 'maxNights' } },
+			},
+			{
+				displayName: 'Minimum Nights',
+				name: 'minNights',
+				type: 'number',
+				typeOptions: { minValue: 1 },
+				default: 1,
+				routing: { send: { type: 'body', property: 'minNights' } },
+			},
+			{
+				displayName: 'Nightly Price',
+				name: 'price',
+				type: 'number',
+				typeOptions: { minValue: 0, numberPrecision: 2 },
+				default: 0,
+				routing: { send: { type: 'body', property: 'price' } },
+			},
+		],
+	},
+];

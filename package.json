@@ -1,0 +1,58 @@
+{
+    "name": "n8n-nodes-repull",
+    "version": "0.1.0",
+    "description": "n8n nodes for Repull: Airbnb, Booking.com and Vrbo reservations, guest messages, reviews and calendars through one API",
+    "license": "MIT",
+    "homepage": "https://repull.dev",
+    "keywords": [
+        "n8n-community-node-package",
+        "n8n",
+        "airbnb",
+        "booking.com",
+        "vrbo",
+        "vacation rental",
+        "channel manager",
+        "repull"
+    ],
+    "author": {
+        "name": "Repull",
+        "email": "hello@repull.dev"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ivannikolovbg/n8n-nodes-repull.git"
+    },
+    "scripts": {
+        "build": "n8n-node build",
+        "build:watch": "tsc --watch",
+        "dev": "n8n-node dev",
+        "lint": "n8n-node lint",
+        "lint:fix": "n8n-node lint --fix",
+        "release": "n8n-node release",
+        "prepublishOnly": "n8n-node prerelease"
+    },
+    "files": [
+        "dist"
+    ],
+    "n8n": {
+        "n8nNodesApiVersion": 1,
+        "strict": true,
+        "credentials": [
+            "dist/credentials/RepullApi.credentials.js"
+        ],
+        "nodes": [
+            "dist/nodes/Repull/Repull.node.js",
+            "dist/nodes/RepullTrigger/RepullTrigger.node.js"
+        ]
+    },
+    "devDependencies": {
+        "@n8n/node-cli": "*",
+        "eslint": "9.32.0",
+        "prettier": "3.6.2",
+        "release-it": "^21.1.0",
+        "typescript": "5.9.2"
+    },
+    "peerDependencies": {
+        "n8n-workflow": "*"
+    }
+}
