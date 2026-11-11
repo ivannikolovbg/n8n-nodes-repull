@@ -1,6 +1,6 @@
 {
     "name": "n8n-nodes-repull",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "n8n nodes for Repull: Airbnb, Booking.com and Vrbo reservations, guest messages, reviews and calendars through one API",
     "license": "MIT",
     "homepage": "https://repull.dev",

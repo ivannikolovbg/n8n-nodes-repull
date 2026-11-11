@@ -22,7 +22,9 @@ See the [community nodes installation guide](https://docs.n8n.io/integrations/co
 
 | Resource | Operations |
 |---|---|
-| Reservation | Get, Get Many (filter by platform, status, listing, check-in dates, updated since) |
+| Reservation | Get, Get Many (filter by platform, status, listing, check-in dates, updated since), **Get Summary** (bookings, nights, revenue, payout, average nightly rate, occupancy and cancellations for a period; group by month, listing or channel; As Of for a like-for-like comparison with last year), Accept Request, Decline Request, Create (direct, website or owner booking) |
+| Guest | Get, Get Many (search by name, email or phone) |
+| Payout | Get Many (payouts and other channel transactions) |
 | Conversation | Get Many, Get Messages, Send Message |
 | Review | Get Many (filter by platform, listing, answered/unanswered), Reply |
 | Property | Get Many |
@@ -41,7 +43,8 @@ The Repull node can also be used as a tool by n8n's AI Agent.
 
 **Repull Trigger** starts a workflow when something happens in your connected accounts:
 reservation created, updated or cancelled; message received; review created or responded;
-inquiry or booking request created; alteration requested; calendar updated; account disconnected.
+inquiry or booking request created; alteration requested; calendar updated; payout completed;
+channel degraded or sync failed; account disconnected. Reservation events carry the listing name.
 
 When you activate the workflow, the trigger registers a webhook with Repull. It verifies the
 `X-Repull-Signature` HMAC on every delivery and rejects anything unsigned or older than 5 minutes.
