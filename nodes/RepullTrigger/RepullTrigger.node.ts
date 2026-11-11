@@ -80,8 +80,11 @@ export class RepullTrigger implements INodeType {
 				options: [
 					{ name: 'Account Disconnected', value: 'account.disconnected' },
 					{ name: 'Calendar Updated', value: 'calendar.updated' },
+					{ name: 'Channel Degraded', value: 'channel.degraded' },
+					{ name: 'Channel Sync Failed', value: 'channel.sync.failed' },
 					{ name: 'Inquiry Created', value: 'inquiry.created' },
 					{ name: 'Message Received', value: 'reservation.message.received' },
+					{ name: 'Payout Completed', value: 'payout.completed' },
 					{ name: 'Reservation Alteration Requested', value: 'reservation.alteration.created' },
 					{ name: 'Reservation Cancelled', value: 'reservation.cancelled' },
 					{ name: 'Reservation Created', value: 'reservation.created' },
